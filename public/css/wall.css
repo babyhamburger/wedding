@@ -109,4 +109,26 @@ video.slide-media.media-ready { opacity: 1; }
   color: #fff; padding: 10px 20px; border-radius: 999px; font-size: 15px; cursor: pointer;
   backdrop-filter: blur(4px);
 }
-.exit-btn:hover { background: rgba(255,255,255,.22); }
+.exit-btn:hover { background: rgba(255,255,255,.25); }
+
+/* ---------- 大图查看 ---------- */
+.cell { cursor: zoom-in; }
+.lightbox {
+  position: fixed; inset: 0; z-index: 40;
+  background: rgba(0,0,0,.94);
+  display: flex; align-items: center; justify-content: center;
+  animation: lb-fade .25s ease;
+}
+@keyframes lb-fade { from { opacity: 0; } to { opacity: 1; } }
+.lb-stage { max-width: 94vw; max-height: 92vh; display: flex; align-items: center; justify-content: center; }
+.lb-stage img, .lb-stage video {
+  max-width: 94vw; max-height: 92vh; object-fit: contain; display: block;
+  border-radius: 6px; box-shadow: 0 8px 48px rgba(0,0,0,.6);
+}
+.lb-close {
+  position: absolute; top: 24px; right: 28px; z-index: 41;
+  width: 46px; height: 46px; border-radius: 50%;
+  background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.3);
+  color: #fff; font-size: 20px; cursor: pointer; line-height: 1;
+}
+.lb-close:hover { background: rgba(255,255,255,.28); }

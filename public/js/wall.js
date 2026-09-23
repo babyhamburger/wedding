@@ -19,6 +19,7 @@
   let totalCount = 0;
 
   // ---------- 初始加载 ----------
+  $('qr').src = window.Event.page('/qr.png');
   fetch(window.Event.api('/config')).then((r) => r.json()).then((c) => {
     if (c.title) $('title').textContent = c.title;
     if (c.date) $('date').textContent = c.date;
@@ -264,9 +265,59 @@
 
   $('btn-mode').addEventListener('click', () => (carouselOpen ? closeCarousel() : openCarousel()));
   $('btn-exit').addEventListener('click', closeCarousel);
+
+  // ---------- 点击格子查看大图 ----------
+  const lightbox = $('lightbox');
+  const lbStage = $('lb-stage');
+  let lbOpen = false;
+
+  function openLightbox(p) {
+    if (!p || !p.url) return;
+    lbStage.innerHTML = '';
+    if (p.mediaType === 'video') {
+      const v = document.createElement('video');
+      v.src = p.url;
+      if (p.posterUrl) v.poster = p.posterUrl;
+      v.controls = true;
+      v.autoplay = true;
+      v.playsInline = true;
+      v.setAttribute('playsinline', '');
+      lbStage.appendChild(v);
+    } else {
+      const img = document.createElement('img');
+      img.src = p.url;
+      img.alt = '';
+      lbStage.appendChild(img);
+    }
+    lbOpen = true;
+    lightbox.classList.remove('hidden');
+  }
+
+  function closeLightbox() {
+    if (!lbOpen) return;
+    lbOpen = false;
+    lightbox.classList.add('hidden');
+    lbStage.innerHTML = ''; // 移除 video 以停止播放
+  }
+
+  grid.addEventListener('click', (e) => {
+    const cell = e.target.closest('.cell');
+    if (!cell) return;
+    const p = photos.get(cell.dataset.id);
+    if (p) openLightbox(p);
+  });
+
+  lightbox.addEventListener('click', (e) => {
+    // 点击空白处或关闭按钮退出；点在媒体本身上不关闭（视频要能操作控件）
+    if (e.target === lbStage || e.target === lightbox || e.target.id === 'btn-lb-close') closeLightbox();
+  });
+
   document.addEventListener('keydown', (e) => {
-    if (e.code === 'Space') { e.preventDefault(); carouselOpen ? closeCarousel() : openCarousel(); }
-    if (e.code === 'Escape' && carouselOpen) closeCarousel();
+    if (e.code === 'Space' && !lbOpen) { e.preventDefault(); carouselOpen ? closeCarousel() : openCarousel(); }
+    if (e.code === 'Escape') {
+      if (lbOpen) closeLightbox();
+      else if (carouselOpen) closeCarousel();
+    }
     if (carouselOpen && e.code === 'ArrowRight') { nextSlide(); scheduleSlide(); }
     if (carouselOpen && e.code === 'ArrowLeft') {
       const list = pool();

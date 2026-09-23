@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>照片墙管理</title>
+  <link rel="stylesheet" href="/css/admin.css" />
+</head>
+<body>
+  <header class="topbar">
+    <h1>照片墙管理</h1>
+    <div class="top-right">
+      <input id="token" type="password" placeholder="管理口令" autocomplete="off" />
+      <button id="btn-login" class="btn">登录</button>
+      <a id="btn-wall" class="btn ghost" href="/wall" target="_blank">打开大屏</a>
+    </div>
+  </header>
+
+  <section class="panel">
+    <div class="panel-title">上传入口</div>
+    <div class="entry">
+      <img id="qr" src="/qr.png" alt="上传二维码" />
+      <div class="entry-info">
+        <div>宾客扫码上传地址：</div>
+        <code id="upload-url"></code>
+        <div class="hint">右键/长按二维码图片可保存打印，投放到现场桌牌。</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="panel-title">
+      照片列表
+      <span class="title-ops">
+        <button id="btn-refresh" class="btn ghost small">刷新</button>
+      </span>
+    </div>
+    <div id="selbar" class="selbar hidden">
+      <label class="sel-all"><input id="chk-all" type="checkbox" /> 全选</label>
+      <span id="sel-count">已选 0 项</span>
+      <button id="btn-download" class="btn small" disabled>下载选中 (ZIP)</button>
+      <button id="btn-clear-sel" class="btn ghost small">取消选择</button>
+      <span id="dl-status" class="dl-status"></span>
+    </div>
+    <div id="grid" class="admin-grid"></div>
+    <p id="empty" class="empty">请先登录。</p>
+  </section>
+
+  <script src="/js/event.js"></script>
+  <script src="/js/admin.js"></script>
+</body>
+</html>

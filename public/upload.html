@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#b8860b" />
+  <title>上传现场照片/视频</title>
+  <link rel="stylesheet" href="/css/upload.css" />
+</head>
+<body>
+  <div id="offline-banner" class="banner hidden">当前无网络，照片已保存在本机，联网后会自动继续上传。</div>
+
+  <main class="wrap">
+    <header class="hero">
+      <div class="hero-badge">现场随手拍</div>
+      <h1 id="title">婚礼现场照片墙</h1>
+      <p id="subtitle" class="sub">上传美好瞬间，人人都是婚礼现场摄影师</p>
+    </header>
+
+    <section class="actions">
+      <button id="btn-camera" class="btn btn-primary">
+        <span class="ico">📷</span> 拍照上传
+      </button>
+      <button id="btn-album" class="btn btn-ghost">
+        <span class="ico">🖼️</span> 从相册选择
+      </button>
+      <button id="btn-video" class="btn btn-ghost">
+        <span class="ico">🎬</span> 拍视频 / 选视频
+      </button>
+    </section>
+
+    <input id="in-camera" type="file" accept="image/*" capture="environment" hidden />
+    <input id="in-album" type="file" accept="image/*" multiple hidden />
+    <input id="in-video" type="file" accept="video/*" multiple hidden />
+
+    <section id="done" class="done hidden">
+      <div class="done-check">✓</div>
+      <p>上传成功，快去看看大屏吧！</p>
+      <button id="btn-again" class="btn btn-ghost small">继续上传</button>
+    </section>
+
+    <section class="queue" id="queue">
+      <div class="queue-head">
+        <span id="queue-title">待上传</span>
+        <button id="btn-retry-all" class="link hidden">全部重试</button>
+      </div>
+      <ul id="queue-list" class="queue-list"></ul>
+      <p id="queue-empty" class="queue-empty">还没有照片，点击上方按钮开始吧。</p>
+    </section>
+  </main>
+
+  <script src="/js/event.js"></script>
+  <script src="/js/compress.js"></script>
+  <script src="/js/queue.js"></script>
+  <script src="/js/upload.js"></script>
+</body>
+</html>

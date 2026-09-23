@@ -1,0 +1,21 @@
+{
+  "name": "wedding-photo-wall",
+  "version": "1.0.0",
+  "private": true,
+  "description": "婚礼现场扫码即传照片墙（参考 LiveDrop）",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "archiver": "^8.0.0",
+    "better-sqlite3": "^11.10.0",
+    "express": "^4.21.2",
+    "qrcode": "^1.5.4",
+    "ws": "^8.18.0"
+  }
+}

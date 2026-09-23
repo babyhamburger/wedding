@@ -1,0 +1,112 @@
+:root {
+  --bg: #14100c;
+  --ink: #f5efe6;
+  --gold: #d4af37;
+  --muted: #9a8c7a;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: var(--bg); color: var(--ink);
+  overflow: hidden;
+}
+.hidden { display: none !important; }
+
+.wall-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 18px 32px; height: 84px;
+  background: linear-gradient(180deg, rgba(20,16,12,.95), rgba(20,16,12,.6));
+  position: relative; z-index: 5;
+}
+.wh-left { display: flex; align-items: baseline; gap: 16px; }
+.wh-left h1 { font-size: 30px; font-weight: 700; letter-spacing: 1px; }
+.date { color: var(--muted); font-size: 16px; }
+
+.wh-right { display: flex; align-items: center; gap: 18px; }
+.count { font-size: 18px; color: var(--gold); font-weight: 600; }
+.conn { font-size: 14px; }
+.conn-live { color: #4caf50; }
+.conn-retry { color: #ffb300; animation: blink 1s infinite; }
+.conn-poll { color: #ff9800; }
+.conn-down { color: #f44336; }
+@keyframes blink { 50% { opacity: .3; } }
+
+.mode-btn {
+  background: transparent; border: 1.5px solid var(--gold);
+  color: var(--gold); font-size: 15px; padding: 8px 18px;
+  border-radius: 999px; cursor: pointer; transition: background .2s, color .2s;
+}
+.mode-btn:hover { background: var(--gold); color: var(--bg); }
+
+.header-qr {
+  position: absolute; right: 32px; top: 100%;
+  width: 96px; height: 96px; margin-top: 8px;
+  border-radius: 10px; background: #fff; padding: 6px;
+  opacity: .85; box-shadow: 0 4px 16px rgba(0,0,0,.4);
+}
+
+/* ---------- 网格 ---------- */
+.grid {
+  height: calc(100vh - 84px);
+  overflow-y: auto;
+  padding: 16px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  grid-auto-rows: 220px;
+  grid-auto-flow: dense;
+  gap: 10px;
+}
+.cell {
+  position: relative; overflow: hidden; border-radius: 10px;
+  background: #241d15;
+}
+.cell img, .cell video { width: 100%; height: 100%; object-fit: cover; display: block; }
+/* 视频格子：封面垫底，视频解码成功后淡入覆盖 */
+.cell-poster { position: absolute; inset: 0; z-index: 0; }
+.cell video { position: absolute; inset: 0; z-index: 1; opacity: 0; transition: opacity .5s ease; }
+.cell video.media-ready { opacity: 1; }
+.slide-poster { position: absolute; inset: 0; z-index: 0; }
+.slide-media { z-index: 1; }
+.slide img.slide-poster { z-index: 0; }
+video.slide-media { opacity: 0; transition: opacity .6s ease; }
+video.slide-media.media-ready { opacity: 1; }
+.cell-video-tag {
+  position: absolute; left: 8px; bottom: 8px; z-index: 2;
+  font-size: 18px; filter: drop-shadow(0 1px 2px rgba(0,0,0,.6));
+}
+.cell-new { animation: pop-in .6s cubic-bezier(.2,.9,.3,1.2); }
+.cell-new::after {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(circle at center, rgba(212,175,55,.5), transparent 70%);
+  animation: flash 2s ease forwards;
+}
+@keyframes pop-in { from { transform: scale(.85); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+@keyframes flash { to { opacity: 0; } }
+.cell-removing { animation: fade-out .4s ease forwards; }
+@keyframes fade-out { to { opacity: 0; transform: scale(.9); } }
+
+/* ---------- 轮播 ---------- */
+.carousel {
+  position: fixed; inset: 0; z-index: 20;
+  background: #000; display: flex; align-items: center; justify-content: center;
+}
+.slide { width: 100%; height: 100%; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+.slide img, .slide video { max-width: 100%; max-height: 100%; object-fit: contain; }
+.slide img.kb { animation: kenburns 8s ease-out forwards; }
+@keyframes kenburns { from { transform: scale(1); } to { transform: scale(1.08); } }
+
+.new-badge {
+  position: absolute; top: 32px; right: 32px;
+  background: var(--gold); color: #14100c; font-weight: 700;
+  padding: 10px 22px; border-radius: 999px; font-size: 18px;
+  animation: pop-in .4s ease;
+}
+.exit-btn {
+  position: absolute; bottom: 28px; right: 28px;
+  background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.3);
+  color: #fff; padding: 10px 20px; border-radius: 999px; font-size: 15px; cursor: pointer;
+  backdrop-filter: blur(4px);
+}
+.exit-btn:hover { background: rgba(255,255,255,.22); }

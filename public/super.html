@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>超管总控台</title>
+  <link rel="stylesheet" href="/css/super.css" />
+</head>
+<body>
+  <header class="topbar">
+    <h1>超管总控台</h1>
+    <div class="top-right">
+      <input id="super-token" type="password" placeholder="超管口令" autocomplete="off" />
+      <button id="btn-login" class="btn">登录</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="panel">
+      <div class="panel-title">
+        场次列表
+        <span class="title-ops">
+          <button id="btn-refresh" class="btn ghost small">刷新</button>
+          <button id="btn-create" class="btn small primary">创建场次</button>
+        </span>
+      </div>
+      <div id="event-list" class="event-list"></div>
+      <p id="empty" class="empty">请先登录。</p>
+    </section>
+  </main>
+
+  <!-- 创建场次对话框 -->
+  <div id="dlg-create" class="dlg hidden">
+    <div class="dlg-mask"></div>
+    <div class="dlg-body">
+      <h3>创建场次</h3>
+      <label>场次标识（slug）<input id="f-slug" type="text" placeholder="如 wedding-2026" autocomplete="off" /></label>
+      <label>标题<input id="f-title" type="text" placeholder="如 张三 & 李四 婚礼" autocomplete="off" /></label>
+      <label>日期（可选）<input id="f-date" type="text" placeholder="如 2026-10-01" autocomplete="off" /></label>
+      <label>管理口令（留空自动生成）<input id="f-token" type="text" placeholder="至少 6 位" autocomplete="off" /></label>
+      <div class="dlg-ops">
+        <button id="btn-cancel" class="btn ghost">取消</button>
+        <button id="btn-confirm" class="btn primary">创建</button>
+      </div>
+      <p id="dlg-err" class="dlg-err"></p>
+    </div>
+  </div>
+
+  <script src="/js/super.js"></script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>婚礼照片墙</title>
+  <link rel="stylesheet" href="/css/wall.css" />
+</head>
+<body>
+  <header class="wall-header">
+    <div class="wh-left">
+      <h1 id="title">婚礼现场照片墙</h1>
+      <span id="date" class="date"></span>
+    </div>
+    <div class="wh-right">
+      <span id="count" class="count">0 张</span>
+      <span id="conn" class="conn" title="连接状态">●</span>
+      <button id="btn-mode" class="mode-btn" title="切换轮播 (空格)">轮播</button>
+    </div>
+    <img id="qr" class="header-qr" src="/qr.png" alt="扫码上传" title="扫码上传照片" />
+  </header>
+
+  <main id="grid" class="grid"></main>
+
+  <!-- 轮播层 -->
+  <div id="carousel" class="carousel hidden">
+    <div id="slide" class="slide"></div>
+    <div id="new-badge" class="new-badge hidden">新照片</div>
+    <button id="btn-exit" class="exit-btn">退出轮播</button>
+  </div>
+
+  <script src="/js/event.js"></script>
+  <script src="/js/wall.js"></script>
+</body>
+</html>

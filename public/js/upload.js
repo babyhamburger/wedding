@@ -12,7 +12,7 @@
     offlineBanner: $('offline-banner')
   };
 
-  let config = { title: '', storage: 'local', maxBytes: 15 * 1024 * 1024, maxVideoBytes: 60 * 1024 * 1024 };
+  let config = { title: '', storage: 'local', maxBytes: 15 * 1024 * 1024, maxVideoBytes: 500 * 1024 * 1024 };
   let processing = false;
   const progressMap = new Map(); // cid -> 0..1
   const thumbCache = new Map();  // cid -> objectURL
@@ -166,7 +166,7 @@
       xhr.upload.onprogress = (e) => {
         if (e.lengthComputable) { progressMap.set(item.cid, e.loaded / e.total); render(); }
       };
-      xhr.timeout = 120000;
+      xhr.timeout = item.mediaType === 'video' ? 600000 : 120000;
       xhr.ontimeout = () => reject(new Error('timeout'));
       xhr.onerror = () => reject(new Error('network'));
       xhr.onload = () => (xhr.status >= 200 && xhr.status < 300 ? resolve() : reject(new Error('put_' + xhr.status)));

@@ -33,6 +33,7 @@ body {
 }
 
 .hero { text-align: center; margin-bottom: 28px; }
+.hero-logo { display: block; width: 150px; margin: 0 auto 16px; }
 .hero-badge {
   display: inline-block; font-size: 12px; letter-spacing: 2px;
   color: var(--gold); border: 1px solid var(--gold-light);
